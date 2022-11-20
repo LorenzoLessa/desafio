@@ -30,7 +30,7 @@ functions:
     timeout: 30
     events:
       - s3:
-          bucket: solvimm.project.com # ← Nome do bucket
+          bucket: project.com-lorenzolessa # ← Nome do bucket
           event: s3:ObjectCreated:*
           rules:
             - prefix: uploads/
