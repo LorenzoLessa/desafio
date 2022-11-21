@@ -10,5 +10,16 @@ def extractMetadata(event, context):
 def getMetadata(event, context):
     print("Hello World")
 
+def getImage(s3objectkey):
+    pass
+    # Faz download da imagem do s3
+
+def infoImages():
+    pass
+    # ● Qual é a imagem que contém o maior tamanho?
+    # ● Qual é a imagem que contém o menor tamanho?
+    # ● Quais os tipos de imagem salvas no S3?
+    # ● Qual a quantidade de cada tipo de imagem salva?
+
 # S3 dispara evento informando Lambda que houve novo upload >> Lambda para executar as regras que você precisa, entre elas saber as dimensões da imagem 
 # >> a Lambda salva no DynamoDB
