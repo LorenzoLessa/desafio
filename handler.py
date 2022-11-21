@@ -5,10 +5,10 @@ import boto3
 dynamodb = boto3.resource("dynamodb")
 
 def extractMetadata(event, context):
-    print("Hello World")
+    pass
 
 def getMetadata(event, context):
-    print("Hello World")
+    pass
 
 def getImage(s3objectkey):
     pass
