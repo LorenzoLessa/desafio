@@ -2,11 +2,16 @@
 
 import boto3
 
-s3 = boto3.resource("s3")
-dynamodb = boto3.resource("dynamodb")
+s3 = boto3.resource('s3')
+#dynamodb = boto3.resource("dynamodb")
+
+print('Existing buckets:')
 
 for bucket in s3.buckets.all():
     print(bucket.name)
+
+for objetos in 'project.com-lorenzolessa':
+    print(objetos, end='')
 
 def extractMetadata(event, context):
     pass
