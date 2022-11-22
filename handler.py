@@ -1,12 +1,34 @@
+import json
+import urllib.parse
 import boto3
 
-s3 = boto3.resource('s3')
-print(s3.Bucket(name='project.com-lorenzolessa'))
-
-#dynamodb = boto3.resource("dynamodb")
-
 def extractMetadata(event, context):
-    pass
+    s3 = boto3.resource('s3')
+    dynamodb = boto3.resource('dynamodb')
+
+    # Recuperar o nome do bucket do payload 
+    bucket = event['Records'][0]['s3']['bucket']['name']
+    # Recuperar nome do arquivo do payload 
+    nomearquivo = urllib.parse.unquote_plus(event['Records'][0]['s3']['object']['key'], encoding='utf-8')
+    
+    try:
+
+        #Buscar o arquivo do bucket
+        arquivo = s3.get_Object(Bucket=bucket, Key=nomearquivo)
+        # Desserializar o conteúdo do arquivo
+        texto = arquivo['Body'].read().decode()
+        dados = json.loads(texto)
+
+        # Print do conteúdo do arquivo
+        # print(dados)
+
+        # Iteração para selecionar as colunas e gravar os dados no DynamoDB 
+        for registros in dados:
+
+    except Exception as e:
+        print(e)
+        print(f'Error getting object {nomearquivo} from bucket {bucket}.')
+        raise e
 
 def getMetadata(event, context):
     pass
