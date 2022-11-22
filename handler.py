@@ -23,7 +23,12 @@ def extractMetadata(event, context):
         # print(dados)
 
         # Iteração para selecionar as colunas e gravar os dados no DynamoDB 
-        for registros in dados:
+        for dado in dados:
+            tabela = dynamodb.Table('dados-de-imagens-do-s3bucket')
+            tabela.put_item(Item={
+                'tipodearquivo': dado['tipo'],
+                'tamanho': dado['tamanho'],  
+            })
 
     except Exception as e:
         print(e)
