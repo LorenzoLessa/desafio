@@ -5,8 +5,8 @@ import boto3
 s3 = boto3.resource('s3')
 #dynamodb = boto3.resource("dynamodb")
 
-print('Existing buckets:')
 
+print('Existing buckets:')
 for bucket in s3.buckets.all():
     print(bucket.name)
 
