@@ -26,8 +26,8 @@ def extractMetadata(event, context):
         for dado in dados:
             tabela = dynamodb.Table('dados-de-imagens-do-s3bucket')
             tabela.put_item(Item={
-                'tipodearquivo': dado['tipo'],
-                'tamanho': dado['tamanho'],  
+                'dimensões': dado['dimensões'],  
+                'tamanho_do_arquivo': dado['tamanho_do_arquivo'],
             })
 
     except Exception as e:
@@ -39,7 +39,13 @@ def getMetadata(event, context):
     pass
 
 def getImage(s3objectkey):
-    pass
+    try:
+        s3 = boto3.client('s3')
+        s3.download_file('project.com-lorenzolessa', s3objectkey)
+        
+    except Exception as e:
+        print(e)
+        raise e
     # Faz download da imagem do s3
 
 def infoImages():
