@@ -37,6 +37,7 @@ def extractMetadata(event, context):
         raise e
 
 def getMetadata(event, context):
+    #batchGetItem() ou Query()
     pass
 
 # Faz download da imagem do s3
