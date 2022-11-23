@@ -1,6 +1,7 @@
 import json
 import urllib.parse
 import boto3
+from botocore.exceptions import ClientError
 
 def extractMetadata(event, context):
     s3 = boto3.resource('s3')
@@ -38,15 +39,14 @@ def extractMetadata(event, context):
 def getMetadata(event, context):
     pass
 
+# Faz download da imagem do s3
 def getImage(s3objectkey):
     try:
         s3 = boto3.client('s3')
         s3.download_file('project.com-lorenzolessa', s3objectkey)
-        
-    except Exception as e:
-        print(e)
-        raise e
-    # Faz download da imagem do s3
+
+    except ClientError as e:
+        print(e)  
 
 def infoImages():
     pass
