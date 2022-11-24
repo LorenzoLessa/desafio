@@ -3,7 +3,7 @@ import pprint
 import urllib.parse
 import boto3
 from botocore.exceptions import ClientError
-from boto3.dynamodb.conditions import Key
+from boto3.dynamodb.conditions import Key, Attr
 
 def extractMetadata(event, context):
     s3 = boto3.resource('s3')
@@ -38,11 +38,19 @@ def extractMetadata(event, context):
         print(f'Error getting object {nomearquivo} from bucket {bucket}.')
         raise e
 
-# Retorna os metadados armazenados no DynamoDB.
+
+# Retorna os metadados armazenados no DynamoDB - Não consegui finalizar está função, nem testá-la
 def getMetadata(s3objectkey):
-    dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table('dados-de-imagens-do-s3bucket')
-    print(table.item_count)
+    db = boto3.resource('dynamodb')
+    table = db.Table('dados-de-imagens-do-s3bucket')
+
+    response = table.scan(
+        FilterExpression=Attr('ID').gte(0)
+    )
+    
+    for x in response['Items']:
+        return x
+
 
 # Faz download da imagem do s3.
 def getImage(s3objectkey):
@@ -53,7 +61,7 @@ def getImage(s3objectkey):
     except ClientError as e:
         print(e)  
 
-# Pesquisa os metadados salvos no DynamoDB.
+# Pesquisa os metadados salvos no DynamoDB - Não consegui finalizar está função
 def infoImages():
     # Qual é a imagem que contém o maior tamanho?
     # Qual é a imagem que contém o menor tamanho?
